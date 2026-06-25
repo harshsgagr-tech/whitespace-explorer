@@ -3,6 +3,10 @@
 Finds sub-domains where VC demand is high but builder supply is low. The output
 is a ranked whitespace list: where capital is asking and few people are building.
 
+Deploy the explorer in one click with
+[Render](https://render.com/deploy?repo=https://github.com/harshsgagr-tech/whitespace-explorer),
+or see [DEPLOY.md](DEPLOY.md).
+
 ## Run
 
 ```bash

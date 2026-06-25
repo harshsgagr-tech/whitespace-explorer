@@ -1000,6 +1000,106 @@ a.sig-co:hover {
   background: #f3e4e0;
 }
 
+/* ----- Trends view ----- */
+.trends {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 22px 24px 40px;
+}
+.tr-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 14px;
+}
+.tr-h {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.tr-p {
+  margin: 0;
+  max-width: 720px;
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.tr-head .field {
+  flex-shrink: 0;
+}
+.tr-legend {
+  margin-bottom: 14px;
+}
+.tr-chart-wrap {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 14px 16px;
+  max-width: 1180px;
+}
+.tr-svg {
+  width: 100%;
+  aspect-ratio: 1000 / 340;
+  display: block;
+}
+.tr-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.tr-ytick {
+  fill: var(--ink-3);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.tr-xtick {
+  fill: var(--ink-3);
+  font-size: 11px;
+}
+.tr-guide {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.tr-tip {
+  position: fixed;
+  z-index: 60;
+  pointer-events: none;
+  background: var(--ink);
+  color: #f4f1ea;
+  padding: 8px 10px;
+  border-radius: 7px;
+  font-size: 12px;
+  box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.5);
+  min-width: 134px;
+}
+.tr-tip-month {
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 5px;
+}
+.tr-tip-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 1px 0;
+}
+.tr-tip-name {
+  flex: 1;
+  opacity: 0.85;
+}
+.tr-tip-val {
+  font-weight: 600;
+  color: #fff;
+}
+.tr-tip .swatch {
+  width: 9px;
+  height: 9px;
+}
+
 /* ----- Scrollbars, restrained ----- */
 .chart::-webkit-scrollbar,
 .panel-list::-webkit-scrollbar,

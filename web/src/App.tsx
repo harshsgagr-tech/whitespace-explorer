@@ -4,8 +4,9 @@ import { TopBar } from "./components/TopBar";
 import { ExplorerView } from "./components/ExplorerView";
 import { WhitespaceView } from "./components/WhitespaceView";
 import { SignalsView } from "./components/SignalsView";
+import { TrendsView } from "./components/TrendsView";
 
-export type View = "explorer" | "signals" | "whitespace";
+export type View = "explorer" | "trends" | "signals" | "whitespace";
 
 export default function App() {
   const [meta, setMeta] = useState<Meta | null>(null);
@@ -37,6 +38,8 @@ export default function App() {
         </div>
       ) : view === "explorer" ? (
         <ExplorerView meta={meta} filters={filters} />
+      ) : view === "trends" ? (
+        <TrendsView meta={meta} />
       ) : view === "signals" ? (
         <SignalsView />
       ) : (

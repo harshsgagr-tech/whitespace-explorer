@@ -33,6 +33,14 @@ export function TopBar({ meta, view, onView, filters, onFilters }: Props) {
           </button>
           <button
             role="tab"
+            aria-selected={view === "trends"}
+            className={"tab" + (view === "trends" ? " is-on" : "")}
+            onClick={() => onView("trends")}
+          >
+            Trends
+          </button>
+          <button
+            role="tab"
             aria-selected={view === "signals"}
             className={"tab" + (view === "signals" ? " is-on" : "")}
             onClick={() => onView("signals")}

@@ -7,7 +7,14 @@ export type Meta = {
   windows: WindowOpt[];
   ai_native: AiNativeOpt[];
   business_models: string[];
+  industries: string[];
   date_range: { min: string | null; max: string | null };
+};
+
+export type Trends = {
+  periods: string[];
+  series: Record<string, number[]>;
+  category: string | null;
 };
 
 export type Industry = {
@@ -113,4 +120,5 @@ export const api = {
   momentum: () => get<Signal[]>("/api/momentum"),
   brief: (subdomain: string, subcategory: string) =>
     get<Brief>("/api/brief" + qs({ subdomain, subcategory })),
+  trends: (category: string) => get<Trends>("/api/trends" + qs({ category })),
 };

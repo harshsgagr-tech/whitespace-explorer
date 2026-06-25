@@ -173,6 +173,8 @@ def _momentum():
 def meta():
     with _conn() as c:
         rng = c.execute("SELECT MIN(seen_at) lo, MAX(seen_at) hi FROM appearances WHERE seen_at IS NOT NULL").fetchone()
+        inds = [r["s"] for r in c.execute(
+            "SELECT DISTINCT subdomain s FROM products WHERE subdomain IS NOT NULL AND subdomain != 'uncategorized' ORDER BY s")]
     return {
         "sources": SOURCES,
         "windows": WINDOWS,
@@ -182,8 +184,61 @@ def meta():
             {"key": "non", "label": "Non AI-native"},
         ],
         "business_models": BUSINESS_MODELS,
+        "industries": inds,
         "date_range": {"min": rng["lo"], "max": rng["hi"]},
     }
+
+
+def _month_range(lo, hi):
+    """Continuous YYYY-MM list from lo to hi inclusive, so the axis has no gaps."""
+    y, m = int(lo[:4]), int(lo[5:7])
+    ey, em = int(hi[:4]), int(hi[5:7])
+    out = []
+    while (y, m) <= (ey, em):
+        out.append(f"{y:04d}-{m:02d}")
+        m += 1
+        if m > 12:
+            m, y = 1, y + 1
+    return out
+
+
+@app.get("/api/trends")
+def trends(category: str = ""):
+    """Monthly volume (new appearances) per source, optionally for one industry.
+
+    Volume is dated by appearance seen_at. Note the sources cover different spans
+    (Show HN and Product Hunt only the last 6 months, arXiv only days, while YC,
+    GitHub, and Hugging Face go back years), so each line only exists where its
+    source has data. The frontend says so.
+    """
+    try:
+        with _conn() as c:
+            q = ("SELECT substr(a.seen_at,1,7) AS period, a.source AS source, COUNT(*) AS n "
+                 "FROM appearances a JOIN products p ON p.id = a.product_id "
+                 "WHERE a.seen_at IS NOT NULL AND a.seen_at >= '2022-01' "
+                 "AND p.subdomain IS NOT NULL AND p.subdomain != 'uncategorized'")
+            params = []
+            if category:
+                q += " AND p.subdomain = ?"
+                params.append(category)
+            q += " GROUP BY period, source"
+            rows = c.execute(q, params).fetchall()
+    except sqlite3.Error:
+        return {"periods": [], "series": {}, "category": category or None}
+
+    if not rows:
+        return {"periods": [], "series": {}, "category": category or None}
+    by = {}
+    for r in rows:
+        by.setdefault(r["source"], {})[r["period"]] = r["n"]
+    all_periods = [p for s in by.values() for p in s]
+    periods = _month_range(min(all_periods), max(all_periods))
+    series = {}
+    for s in SOURCES:  # stable source order
+        key = s["key"]
+        if key in by:
+            series[key] = [by[key].get(p, 0) for p in periods]
+    return {"periods": periods, "series": series, "category": category or None}
 
 
 @app.get("/api/industries")

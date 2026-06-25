@@ -1,0 +1,73 @@
+:root {
+  /* Neutral base: warm off-white, near-black ink. The only saturation on the
+     screen comes from the source colors below. */
+  --bg: #f7f5f0;
+  --surface: #fffefb;
+  --surface-2: #f1ede4;
+  --ink: #1b1a17;
+  --ink-2: #57534b;
+  --ink-3: #8b867c;
+  --line: #e4ddd1;
+  --line-strong: #d3cabb;
+  --hover: #efeae0;
+  --selected: #ece5d8;
+  --focus: #b98a4a;
+
+  /* One consistent color per source. Muted, harmonious, spanning warm to cool
+     so each reads distinctly without shouting. Used in bars, legend, badges. */
+  --src-yc: #d98a4b;
+  --src-product_hunt: #cc6a5a;
+  --src-betalist: #c07ba2;
+  --src-show_hn: #5f8cb6;
+  --src-github: #7f8593;
+  --src-huggingface: #4f9f86;
+  --src-arxiv: #8d84c6;
+
+  /* tints for selected/hover bar tracks */
+  --radius: 7px;
+  --radius-sm: 5px;
+
+  --shadow-panel: -18px 0 48px -24px rgba(40, 32, 20, 0.42);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular numerals everywhere a count appears, so columns of numbers line up. */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "cv01" 1;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  color: inherit;
+}

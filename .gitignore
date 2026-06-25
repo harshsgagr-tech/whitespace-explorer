@@ -1,0 +1,24 @@
+# Secrets, never commit
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Frontend (built in the Docker image / by the host)
+web/node_modules/
+web/dist/
+*.tsbuildinfo
+web/vite.config.d.ts
+
+# Local editor / tooling config
+.claude/
+
+# Local-only
+*.db-wal
+*.db-shm
+.DS_Store
+digests/
+
+# Note: whitespace.db and data/briefs.json are committed on purpose. They hold
+# public company data and the pre-baked theses, which the deployed app serves.

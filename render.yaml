@@ -1,0 +1,10 @@
+# Render Blueprint. With this in the repo, Render's "New > Blueprint" builds the
+# Dockerfile and gives you a public URL. No env vars or secrets are needed: the
+# thesis briefs are pre-baked into data/briefs.json.
+services:
+  - type: web
+    name: whitespace-explorer
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true

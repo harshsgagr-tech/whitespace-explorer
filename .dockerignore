@@ -1,0 +1,10 @@
+.git
+.env
+__pycache__
+*.pyc
+web/node_modules
+web/dist
+*.db-wal
+*.db-shm
+.DS_Store
+digests

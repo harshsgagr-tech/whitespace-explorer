@@ -4,9 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>What people are building</title>
+    <style>
+      /* Shown until the app mounts (and during the free-tier wake-up), so a
+         shared link never looks like a blank page. React replaces it on load. */
+      #ws-boot {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f7f5f0;
+        color: #8b867c;
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        animation: ws-fade 1.3s ease-in-out infinite;
+      }
+      @keyframes ws-fade {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 1; }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="ws-boot">Loading the explorer...</div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
